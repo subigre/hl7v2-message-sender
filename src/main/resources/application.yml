@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: HL7v2 Message Sender
