@@ -24,7 +24,7 @@
             <label for="destination" class="form-label">Destination</label>
             <input type="text" class="form-control"
                    th:classappend="${#fields.hasErrors()} ? (${#fields.hasErrors('destination')} ? 'is-invalid' : 'is-valid') : ''"
-                   id="destination" th:field="*{destination}" placeholder="localhost:9081" autofocus>
+                   id="destination" th:field="*{destination}" placeholder="localhost:2725" autofocus>
             <div class="invalid-feedback" th:if="${#fields.hasErrors('destination')}" th:errors="*{destination}">
                 Destination error
             </div>
