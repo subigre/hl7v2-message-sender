@@ -75,7 +75,7 @@ public class IndexController {
 
         if (StringUtils.hasText(request.getMessage())) {
             try {
-                parser.parse(formatMessage(request.getMessage(), true));
+                parser.parse(request.getMessage());
             } catch (HL7Exception e) {
                 result.rejectValue("message", "invalid", "Message is invalid: " + e.getMessage());
             }
@@ -86,7 +86,7 @@ public class IndexController {
             headers.put("destination", request.getDestination());
 
             GenericMessage response =
-                    producerTemplate.requestBodyAndHeaders("direct:send-message", formatMessage(request.getMessage(), true), headers, GenericMessage.class);
+                    producerTemplate.requestBodyAndHeaders("direct:send-message", request.getMessage(), headers, GenericMessage.class);
 
             String acknowledgmentCode;
             try {
@@ -97,17 +97,10 @@ public class IndexController {
             }
 
             model.addAttribute(Constants.REQUEST_ATTRIBUTE_NAME, request);
-            model.addAttribute(Constants.RESPONSE_ATTRIBUTE_NAME, formatMessage(response.toString(), false));
+            model.addAttribute(Constants.RESPONSE_ATTRIBUTE_NAME, response.toString().replace("\r", "\n"));
             model.addAttribute(Constants.ACKNOWLEDGMENT_CODE_ATTRIBUTE_NAME, acknowledgmentCode);
         }
 
         return Constants.INDEX_VIEW_NAME;
-    }
-
-    private String formatMessage(String message, boolean request) {
-        if (message == null) {
-            return null;
-        }
-        return request ? message.replace("\n", "\r") : message.replace("\r", "\n");
     }
 }
