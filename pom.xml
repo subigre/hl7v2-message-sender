@@ -20,7 +20,7 @@
         <java.version>17</java.version>
         <!-- Dependency Versions -->
         <bootstrap.version>5.3.2</bootstrap.version>
-        <camel.version>4.1.0</camel.version>
+        <camel.version>4.2.0</camel.version>
         <hapi.version>2.5.1</hapi.version>
     </properties>
 
